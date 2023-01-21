@@ -1,0 +1,9 @@
+.container {
+  display: flex;
+  flex-direction: row;
+}
+
+.datepicker {
+  display: flex;
+  width: 70%;
+}
