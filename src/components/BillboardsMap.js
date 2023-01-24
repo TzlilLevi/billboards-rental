@@ -9,6 +9,7 @@ import {
   useMap,
 } from "react-leaflet";
 import BillboardsPopUp from "./BillboardsPopUp";
+import BillboardsNavbar from "./BillboardsNavbar";
 
 const BillboardsMap = () => {
   const positions = [
@@ -52,6 +53,7 @@ const BillboardsMap = () => {
   const billboardAvailable = "./assets/billboardAvailable.svg";
   const billboardNotAvailable = "./assets/billboardNotAvailable.svg";
 
+  let component;
   const [positionsList, setPositionsList] = useState(positions);
 
   const [currentbillBoard, setCurrentbillBoard] = useState();
@@ -75,44 +77,47 @@ const BillboardsMap = () => {
 
   return (
     <div>
-      <MapContainer
-        className={classes.map}
-        center={[31.30949, 34.62058]}
-        zoom={13}
-      >
-        <TileLayer
-          attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
+      <BillboardsNavbar />
+      <div>
+        <MapContainer
+          className={classes.map}
+          center={[31.30949, 34.62058]}
+          zoom={13}
+        >
+          <TileLayer
+            attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
 
-        <div>
-          {positionsList.map((position) => {
-            let markerIcon = L.icon({
-              iconUrl:
-                position.available === true
-                  ? billboardAvailable
-                  : billboardNotAvailable,
-              iconSize: [50, 100],
-              popupAnchor: [0, -41],
-            });
-            return (
-              <Marker
-                key={position.id}
-                position={position.pos}
-                icon={markerIcon}
-              >
-                <BillboardsPopUp
-                  title={position.address}
-                  text={position.text}
-                  available={position.available}
-                  updateBillBoard={UpdateBillBoard}
-                  id={position.id}
-                />
-              </Marker>
-            );
-          })}
-        </div>
-      </MapContainer>
+          <div>
+            {positionsList.map((position) => {
+              let markerIcon = L.icon({
+                iconUrl:
+                  position.available === true
+                    ? billboardAvailable
+                    : billboardNotAvailable,
+                iconSize: [50, 100],
+                popupAnchor: [0, -41],
+              });
+              return (
+                <Marker
+                  key={position.id}
+                  position={position.pos}
+                  icon={markerIcon}
+                >
+                  <BillboardsPopUp
+                    title={position.address}
+                    text={position.text}
+                    available={position.available}
+                    updateBillBoard={UpdateBillBoard}
+                    id={position.id}
+                  />
+                </Marker>
+              );
+            })}
+          </div>
+        </MapContainer>
+      </div>
     </div>
   );
 };
