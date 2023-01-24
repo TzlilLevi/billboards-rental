@@ -11,10 +11,22 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { DialogContainer } from "@adobe/react-spectrum";
 
+import "react-date-range/dist/styles.css"; // main css file
+import "react-date-range/dist/theme/default.css"; // theme css file
+import { DateRange } from "react-date-range";
+// import { addDays } from "date-fns";
+
 export default function FormDialog(props) {
   const [open, setOpen] = React.useState(false);
-  const [startDate, setStartDate] = useState();
-  const [endDate, setendDate] = useState();
+  // const [startDate, setStartDate] = useState();
+  // const [endDate, setendDate] = useState();
+  const [dateState, setDateState] = useState([
+    {
+      startDate: new Date(),
+      endDate: null,
+      key: "selection",
+    },
+  ]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -24,11 +36,41 @@ export default function FormDialog(props) {
     setOpen(false);
   };
 
-  const dateValidation = () => {
-    if (startDate === undefined || endDate === undefined) {
-      return false;
+  // const dateValidation = () => {
+  //   let dateNow = Date.now();
+  //   if (startDate === undefined || endDate === undefined) {
+  //     return false;
+  //   }
+  //   return true;
+  // };
+
+  const formatDate = (date) => {
+    console.log(date);
+    let month = date.getMonth() + 1 + "";
+    let day = "" + date.getDate();
+    let year = date.getFullYear();
+    if (month.length < 2) {
+      month = "0" + month;
     }
-    return true;
+    if (day.length < 2) {
+      day = "0" + day;
+    }
+    return [year, month, day].join("-");
+  };
+
+  // const resetReserveTimes = () => {
+  //   setStartDate(undefined);
+  //   setendDate(undefined);
+  // };
+
+  const resetReserveTimes = () => {
+    setDateState([
+      {
+        startDate: new Date(),
+        endDate: null,
+        key: "selection",
+      },
+    ]);
   };
 
   return (
@@ -41,21 +83,38 @@ export default function FormDialog(props) {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
         fullWidth
-        maxWidth="sm"
+        maxWidth="xs"
       >
         <DialogTitle id="form-dialog-title">{props.title}</DialogTitle>
-        <DialogContent>
+        <DialogContent style={{ height: "400px" }}>
           <DialogContentText>{props.text}</DialogContentText>
           <div className={classes.container}>
-            <DatePicker
+            {/* <DatePicker
               className={classes.datepicker}
-              placeholderText="Enter a start date"
+              placeholderText={
+                startDate === undefined
+                  ? "Enter start date"
+                  : formatDate(startDate)
+              }
               onChange={(date) => setStartDate(date)}
             />
             <DatePicker
               className={classes.datepicker}
-              placeholderText="Enter an end date"
+              placeholderText={
+                endDate === undefined ? "Enter end date" : formatDate(endDate)
+              }
               onChange={(date) => setendDate(date)}
+            /> */}
+
+            <DateRange
+              editableDateInputs={true}
+              onChange={(item) => {
+                if (item.selection.startDate > Date.now()) {
+                  setDateState([item.selection]);
+                }
+              }}
+              moveRangeOnFirstSelection={false}
+              ranges={dateState}
             />
           </div>
         </DialogContent>
@@ -65,10 +124,25 @@ export default function FormDialog(props) {
             Cancel
           </Button>
           <Button
+            // onClick={() =>
+            //   props.updateBillBoard(
+            //     props.id,
+            //     startDate,
+            //     endDate,
+            //     handleClose,
+            //     dateValidation,
+            //     resetReserveTimes
+            //   )
+            // }
+
             onClick={() =>
-              props.updateBillBoard(props.id, handleClose, dateValidation)
+              props.updateBillBoard(
+                props.id,
+                dateState,
+                handleClose,
+                resetReserveTimes
+              )
             }
-            // onClick={reserve}
             color="primary"
           >
             RESERVE
