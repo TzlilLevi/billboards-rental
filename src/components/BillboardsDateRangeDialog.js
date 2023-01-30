@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import classes from "./BillboardsDialog.module.css";
+import classes from "./BillboardsDateRangeDialog.module.css";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -7,14 +7,10 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { DialogContainer } from "@adobe/react-spectrum";
-
-import "react-date-range/dist/styles.css"; // main css file
-import "react-date-range/dist/theme/default.css"; // theme css file
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
 import { DateRange } from "react-date-range";
-// import { addDays } from "date-fns";
 
 export default function FormDialog(props) {
   const [open, setOpen] = React.useState(false);
@@ -89,23 +85,6 @@ export default function FormDialog(props) {
         <DialogContent style={{ height: "400px" }}>
           <DialogContentText>{props.text}</DialogContentText>
           <div className={classes.container}>
-            {/* <DatePicker
-              className={classes.datepicker}
-              placeholderText={
-                startDate === undefined
-                  ? "Enter start date"
-                  : formatDate(startDate)
-              }
-              onChange={(date) => setStartDate(date)}
-            />
-            <DatePicker
-              className={classes.datepicker}
-              placeholderText={
-                endDate === undefined ? "Enter end date" : formatDate(endDate)
-              }
-              onChange={(date) => setendDate(date)}
-            /> */}
-
             <DateRange
               editableDateInputs={true}
               onChange={(item) => {
@@ -124,17 +103,6 @@ export default function FormDialog(props) {
             Cancel
           </Button>
           <Button
-            // onClick={() =>
-            //   props.updateBillBoard(
-            //     props.id,
-            //     startDate,
-            //     endDate,
-            //     handleClose,
-            //     dateValidation,
-            //     resetReserveTimes
-            //   )
-            // }
-
             onClick={() =>
               props.updateBillBoard(
                 props.id,

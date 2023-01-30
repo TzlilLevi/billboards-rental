@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import classes from "./BillboardsPopUp.module.css";
 import Button from "./Button";
 import { Popup } from "react-leaflet";
-import BillboardsDialog from "./BillboardsDialog";
+import BillboardsDateRangeDialog from "./BillboardsDateRangeDialog";
 
 const BillboardsPopUp = (props) => {
   return (
@@ -10,10 +10,7 @@ const BillboardsPopUp = (props) => {
       <Popup>
         <h2 className={classes.header}>{props.title}</h2>
         {props.available && (
-          // <Button onClick={props.openReserveBox} id={props.id}>
-          //   RESERVE
-          // </Button>
-          <BillboardsDialog
+          <BillboardsDateRangeDialog
             id={props.id}
             text={props.text}
             title={props.title}
