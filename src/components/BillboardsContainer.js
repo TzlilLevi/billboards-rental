@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import classes from "./BillboardsMap.module.css";
+import classes from "./BillboardsContainer.module.css";
 import L, { icon } from "leaflet";
 import {
   MapContainer,
@@ -10,6 +10,7 @@ import {
 } from "react-leaflet";
 import BillboardsPopUp from "./BillboardsPopUp";
 import BillboardsNavbar from "./BillboardsNavbar";
+import "react-sliding-pane/dist/react-sliding-pane.css";
 
 const BillboardsMap = () => {
   const positions = [
@@ -71,39 +72,11 @@ const BillboardsMap = () => {
   const billboardAvailable = "./assets/billboardAvailable.svg";
   const billboardNotAvailable = "./assets/billboardNotAvailable.svg";
 
-  let component;
   const [positionsList, setPositionsList] = useState(positions);
-
-  const [currentbillBoard, setCurrentbillBoard] = useState();
-
-  // const UpdateBillBoard = (
-  //   id,
-  //   startDate,
-  //   endDate,
-  //   handleClose,
-  //   dateValidation,
-  //   resetReserveTimes
-  // ) => {
-  //   if (dateValidation()) {
-  //     let newPositionList = positionsList.map((position) => {
-  //       if (position.id == id) {
-  //         position.available = false;
-  //         position.startReserve = startDate;
-  //         position.endReserve = endDate;
-  //       }
-  //       return position;
-  //     });
-  //     setPositionsList(newPositionList);
-  //     handleClose();
-  //     UpdateAvailableBillboards();
-  //     resetReserveTimes();
-  //   }
-  //   return;
-  // };
 
   const UpdateBillBoard = (id, dateState, handleClose, resetReserveTimes) => {
     let newPositionList = positionsList.map((position) => {
-      if (position.id == id) {
+      if (position.id === id) {
         position.available = false;
         position.startReserve = dateState[0].startDate;
         position.endReserve = dateState[0].endDate;
@@ -131,7 +104,7 @@ const BillboardsMap = () => {
       }
       if (position.endReserve < dateNow) {
         position.startReserve = undefined;
-        positions.endReserve = undefined;
+        position.endReserve = undefined;
       }
       return position;
     });
@@ -142,10 +115,23 @@ const BillboardsMap = () => {
     UpdateAvailableBillboards();
   }, []);
 
+  const searchByRange = (range) => {
+    const list = positionsList.filter(
+      (position) =>
+        (position.startReserve === undefined &&
+          position.endReserve === undefined) ||
+        range[0].endDate < position.startReserve ||
+        range[0].startDate > position.endReserve
+    );
+    console.log(list);
+  };
+
   return (
-    <div>
-      <BillboardsNavbar />
-      <div>
+    <div className={classes.container}>
+      <div className={classes.nav}>
+        <BillboardsNavbar search={searchByRange} />
+      </div>
+      <div className={classes.mapcontainer}>
         <MapContainer
           className={classes.map}
           center={[31.30949, 34.62058]}
@@ -155,7 +141,6 @@ const BillboardsMap = () => {
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-
           <div>
             {positionsList.map((position) => {
               let markerIcon = L.icon({

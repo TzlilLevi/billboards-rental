@@ -1,0 +1,8 @@
+.map {
+  height: 92.5vh;
+  /* width: 165vh; */
+}
+
+.mapcontainer {
+  z-index: -1;
+}
