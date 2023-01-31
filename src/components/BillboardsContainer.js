@@ -10,7 +10,10 @@ import {
 } from "react-leaflet";
 import BillboardsPopUp from "./BillboardsPopUp";
 import BillboardsNavbar from "./BillboardsNavbar";
+import PositionsList from "./PositionsList";
+
 import "react-sliding-pane/dist/react-sliding-pane.css";
+import SlidingPane from "react-sliding-pane";
 
 const BillboardsMap = () => {
   const positions = [
@@ -73,6 +76,8 @@ const BillboardsMap = () => {
   const billboardNotAvailable = "./assets/billboardNotAvailable.svg";
 
   const [positionsList, setPositionsList] = useState(positions);
+  const [availableListByDate, setAvailableListByDate] = useState();
+  const [openSlide, setOpenSlide] = useState(false);
 
   const UpdateBillBoard = (id, dateState, handleClose, resetReserveTimes) => {
     let newPositionList = positionsList.map((position) => {
@@ -116,6 +121,7 @@ const BillboardsMap = () => {
   }, []);
 
   const searchByRange = (range) => {
+    setOpenSlide(true);
     const list = positionsList.filter(
       (position) =>
         (position.startReserve === undefined &&
@@ -123,7 +129,8 @@ const BillboardsMap = () => {
         range[0].endDate < position.startReserve ||
         range[0].startDate > position.endReserve
     );
-    console.log(list);
+    setAvailableListByDate(list);
+    console.log(availableListByDate);
   };
 
   return (
@@ -169,6 +176,25 @@ const BillboardsMap = () => {
             })}
           </div>
         </MapContainer>
+      </div>
+      <div>
+        <SlidingPane
+          className={classes.slidepane}
+          isOpen={openSlide}
+          title="Available billboards"
+          // subtitle="Optional subtitle."
+          width="350px"
+          onRequestClose={() => {
+            // triggered on "<" on left top click or on outside click
+            setOpenSlide(false);
+          }}
+        >
+          <div>
+            And I am pane content. BTW, what rocks?
+            <PositionsList positions={availableListByDate} />
+          </div>
+          <br />
+        </SlidingPane>
       </div>
     </div>
   );
