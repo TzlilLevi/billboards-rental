@@ -1,0 +1,22 @@
+/* .positions { */
+/* margin: 2rem auto;
+  width: 90%;
+  max-width: 40rem;
+} */
+
+/* .positions ul {
+  list-style: none;
+  padding: 100rem;
+}
+
+.positions li {
+  border: 1px solid #ccc;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+} */
+
+.postionslist {
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+}
