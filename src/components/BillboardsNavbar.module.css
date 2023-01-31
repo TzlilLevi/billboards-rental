@@ -13,6 +13,7 @@ body {
   align-items: center;
   gap: 4rem;
   padding: 0 rem;
+  z-index: 1000;
 }
 .sitetitle {
   font-size: 1.6rem;
@@ -41,4 +42,27 @@ body {
 
 .nav li.active {
   background-color: #555;
+}
+input.inputBox {
+  font-size: 16px;
+  padding: 8px 5px 6px 20px;
+  margin-top: 2px;
+  /* height: 40px;
+  width: 210px; */
+  border-radius: 10px;
+  border: 1px solid #666;
+  font-family: "Noto Sans", sans-serif;
+}
+
+.calendarWrap {
+  display: inline-block;
+  position: relative;
+}
+.calendarElement {
+  position: absolute;
+  /* left: 50%; */
+  transform: translateX(0%);
+  top: 50px;
+  border: 1px solid #ccc;
+  z-index: 999;
 }
