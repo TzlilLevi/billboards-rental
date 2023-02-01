@@ -14,7 +14,7 @@ const BillboardsPopUp = (props) => {
             id={props.id}
             text={props.text}
             title={props.title}
-            updateBillBoard={props.updateBillBoard}
+            updateBillboard={props.updateBillboard}
           />
         )}
       </Popup>

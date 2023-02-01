@@ -11,7 +11,7 @@ const Card = (props) => {
       className={`${classes.card} ${props.className}`}
       onClick={() => {
         console.log("here");
-        props.onClick(props.clickedPosition);
+        props.onClick(props.clickedBillboard);
       }}
       onMouseOver={props.onMouseOver}
       onMouseLeave={props.onMouseLeave}

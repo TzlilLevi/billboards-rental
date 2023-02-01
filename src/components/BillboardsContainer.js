@@ -10,13 +10,13 @@ import {
 } from "react-leaflet";
 import BillboardsPopUp from "./BillboardsPopUp";
 import BillboardsNavbar from "./BillboardsNavbar";
-import PositionsList from "./PositionsList";
+import BillboardsList from "./BillboardsList";
 import UpdateMapCenter from "./UpdateMapCenter";
 import "react-sliding-pane/dist/react-sliding-pane.css";
 import SlidingPane from "react-sliding-pane";
 
-const BillboardsMap = () => {
-  const positions = [
+const BillboardsContainer = () => {
+  const billboards = [
     {
       pos: [31.30949, 34.62058],
       text: "Details on the board",
@@ -75,25 +75,27 @@ const BillboardsMap = () => {
   const billboardAvailable = "./assets/billboardAvailable.svg";
   const billboardNotAvailable = "./assets/billboardNotAvailable.svg";
 
-  const [positionsList, setPositionsList] = useState(positions);
+  const [billboardsList, setBillboardsList] = useState(billboards);
   const [availableListByDate, setAvailableListByDate] = useState();
   const [openSlide, setOpenSlide] = useState(false);
-  const [currentPosition, setCurrentPosition] = useState([31.30949, 34.62058]);
+  const [currentBillboard, setCurrentBillboard] = useState([
+    31.30949, 34.62058,
+  ]);
 
-  const UpdateBillBoard = (id, dateState, handleClose, resetReserveTimes) => {
-    let newPositionList = positionsList.map((position) => {
-      if (position.id === id) {
-        position.available = false;
-        position.startReserve = dateState[0].startDate;
-        position.endReserve = dateState[0].endDate;
+  const UpdateBillboard = (id, dateState, handleClose, resetReserveTimes) => {
+    let newBillboardList = billboardsList.map((billboard) => {
+      if (billboard.id === id) {
+        billboard.available = false;
+        billboard.startReserve = dateState[0].startDate;
+        billboard.endReserve = dateState[0].endDate;
       }
-      console.log(position);
-      return position;
+      console.log(billboard);
+      return billboard;
     });
-    console.log(newPositionList);
+    console.log(newBillboardList);
 
-    setPositionsList(newPositionList);
-    console.log(newPositionList);
+    setBillboardsList(newBillboardList);
+    console.log(newBillboardList);
     handleClose();
     resetReserveTimes();
     UpdateAvailableBillboards();
@@ -102,19 +104,22 @@ const BillboardsMap = () => {
 
   const UpdateAvailableBillboards = () => {
     let dateNow = Date.now();
-    let newPositionList = positionsList.map((position) => {
-      if (position.startReserve <= dateNow && dateNow <= position.endReserve) {
-        position.available = false;
+    let newBillboardList = billboardsList.map((billboard) => {
+      if (
+        billboard.startReserve <= dateNow &&
+        dateNow <= billboard.endReserve
+      ) {
+        billboard.available = false;
       } else {
-        position.available = true;
+        billboard.available = true;
       }
-      if (position.endReserve < dateNow) {
-        position.startReserve = undefined;
-        position.endReserve = undefined;
+      if (billboard.endReserve < dateNow) {
+        billboard.startReserve = undefined;
+        billboard.endReserve = undefined;
       }
-      return position;
+      return billboard;
     });
-    setPositionsList(newPositionList);
+    setBillboardsList(newBillboardList);
   };
 
   useEffect(() => {
@@ -123,21 +128,21 @@ const BillboardsMap = () => {
 
   const searchByRange = (range) => {
     setOpenSlide(true);
-    const list = positionsList.filter(
-      (position) =>
-        (position.startReserve === undefined &&
-          position.endReserve === undefined) ||
-        range[0].endDate < position.startReserve ||
-        range[0].startDate > position.endReserve
+    const list = billboardsList.filter(
+      (billboard) =>
+        (billboard.startReserve === undefined &&
+          billboard.endReserve === undefined) ||
+        range[0].endDate < billboard.startReserve ||
+        range[0].startDate > billboard.endReserve
     );
     setAvailableListByDate(list);
     console.log(availableListByDate);
   };
 
-  const UpdateCurrentPosition = (position) => {
-    console.log(position);
-    setCurrentPosition(position.pos);
-    console.log(currentPosition);
+  const UpdateCurrentBillboard = (billboard) => {
+    console.log(billboard);
+    setCurrentBillboard(billboard.pos);
+    console.log(currentBillboard);
   };
 
   return (
@@ -148,7 +153,7 @@ const BillboardsMap = () => {
       <div className={classes.mapcontainer}>
         <MapContainer
           className={classes.map}
-          center={currentPosition}
+          center={currentBillboard}
           zoom={13}
         >
           <TileLayer
@@ -156,10 +161,10 @@ const BillboardsMap = () => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           <div>
-            {positionsList.map((position) => {
+            {billboardsList.map((billboard) => {
               let markerIcon = L.icon({
                 iconUrl:
-                  position.available === true
+                  billboard.available === true
                     ? billboardAvailable
                     : billboardNotAvailable,
                 iconSize: [50, 100],
@@ -167,22 +172,22 @@ const BillboardsMap = () => {
               });
               return (
                 <Marker
-                  key={position.id}
-                  position={position.pos}
+                  key={billboard.id}
+                  position={billboard.pos}
                   icon={markerIcon}
                 >
                   <BillboardsPopUp
-                    title={position.address}
-                    text={position.text}
-                    available={position.available}
-                    updateBillBoard={UpdateBillBoard}
-                    id={position.id}
+                    title={billboard.address}
+                    text={billboard.text}
+                    available={billboard.available}
+                    updateBillboard={UpdateBillboard}
+                    id={billboard.id}
                   />
                 </Marker>
               );
             })}
           </div>
-          <UpdateMapCenter center={currentPosition} />
+          <UpdateMapCenter center={currentBillboard} />
         </MapContainer>
       </div>
       <div>
@@ -199,9 +204,9 @@ const BillboardsMap = () => {
         >
           <div>
             Available billboards on your dates:
-            <PositionsList
-              positions={availableListByDate}
-              clickOnPosition={UpdateCurrentPosition}
+            <BillboardsList
+              billboards={availableListByDate}
+              clickOnBillboard={UpdateCurrentBillboard}
             />
           </div>
           <br />
@@ -211,4 +216,4 @@ const BillboardsMap = () => {
   );
 };
 
-export default BillboardsMap;
+export default BillboardsContainer;
