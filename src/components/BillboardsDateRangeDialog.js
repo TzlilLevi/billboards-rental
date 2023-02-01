@@ -14,8 +14,6 @@ import { DateRange } from "react-date-range";
 
 export default function FormDialog(props) {
   const [open, setOpen] = React.useState(false);
-  // const [startDate, setStartDate] = useState();
-  // const [endDate, setendDate] = useState();
   const [dateState, setDateState] = useState([
     {
       startDate: new Date(),
@@ -32,14 +30,6 @@ export default function FormDialog(props) {
     setOpen(false);
   };
 
-  // const dateValidation = () => {
-  //   let dateNow = Date.now();
-  //   if (startDate === undefined || endDate === undefined) {
-  //     return false;
-  //   }
-  //   return true;
-  // };
-
   const formatDate = (date) => {
     console.log(date);
     let month = date.getMonth() + 1 + "";
@@ -53,11 +43,6 @@ export default function FormDialog(props) {
     }
     return [year, month, day].join("-");
   };
-
-  // const resetReserveTimes = () => {
-  //   setStartDate(undefined);
-  //   setendDate(undefined);
-  // };
 
   const resetReserveTimes = () => {
     setDateState([
@@ -104,7 +89,7 @@ export default function FormDialog(props) {
           </Button>
           <Button
             onClick={() =>
-              props.updateBillBoard(
+              props.updateBillboard(
                 props.id,
                 dateState,
                 handleClose,

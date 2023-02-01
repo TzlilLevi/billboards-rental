@@ -1,9 +1,9 @@
 import React from "react";
 
 import Card from "../UI/Card";
-import classes from "./PositionsList.module.css";
+import classes from "./BillboardsList.module.css";
 
-const PositionsList = (props) => {
+const BillboardsList = (props) => {
   const mouseOver = (e) => {
     e.target.style.background = "#E6E6E6";
   };
@@ -14,19 +14,19 @@ const PositionsList = (props) => {
 
   return (
     <div className={classes.postionslist}>
-      {props.positions.map((position) => (
+      {props.billboards.map((billboard) => (
         <Card
-          key={position.id}
-          onClick={props.clickOnPosition}
-          clickedPosition={position}
+          key={billboard.id}
+          onClick={props.clickOnBillboard}
+          clickedBillboard={billboard}
           onMouseOver={mouseOver}
           onMouseLeave={mouseLeave}
         >
-          {position.address} -----
+          {billboard.address} -----
         </Card>
       ))}
     </div>
   );
 };
 
-export default PositionsList;
+export default BillboardsList;
