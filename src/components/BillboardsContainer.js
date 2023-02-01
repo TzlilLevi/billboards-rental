@@ -11,7 +11,7 @@ import {
 import BillboardsPopUp from "./BillboardsPopUp";
 import BillboardsNavbar from "./BillboardsNavbar";
 import PositionsList from "./PositionsList";
-
+import UpdateMapCenter from "./UpdateMapCenter";
 import "react-sliding-pane/dist/react-sliding-pane.css";
 import SlidingPane from "react-sliding-pane";
 
@@ -78,6 +78,7 @@ const BillboardsMap = () => {
   const [positionsList, setPositionsList] = useState(positions);
   const [availableListByDate, setAvailableListByDate] = useState();
   const [openSlide, setOpenSlide] = useState(false);
+  const [currentPosition, setCurrentPosition] = useState([31.30949, 34.62058]);
 
   const UpdateBillBoard = (id, dateState, handleClose, resetReserveTimes) => {
     let newPositionList = positionsList.map((position) => {
@@ -133,6 +134,12 @@ const BillboardsMap = () => {
     console.log(availableListByDate);
   };
 
+  const UpdateCurrentPosition = (position) => {
+    console.log(position);
+    setCurrentPosition(position.pos);
+    console.log(currentPosition);
+  };
+
   return (
     <div className={classes.container}>
       <div className={classes.nav}>
@@ -141,7 +148,7 @@ const BillboardsMap = () => {
       <div className={classes.mapcontainer}>
         <MapContainer
           className={classes.map}
-          center={[31.30949, 34.62058]}
+          center={currentPosition}
           zoom={13}
         >
           <TileLayer
@@ -175,6 +182,7 @@ const BillboardsMap = () => {
               );
             })}
           </div>
+          <UpdateMapCenter center={currentPosition} />
         </MapContainer>
       </div>
       <div>
@@ -190,8 +198,11 @@ const BillboardsMap = () => {
           }}
         >
           <div>
-            And I am pane content. BTW, what rocks?
-            <PositionsList positions={availableListByDate} />
+            Available billboards on your dates:
+            <PositionsList
+              positions={availableListByDate}
+              clickOnPosition={UpdateCurrentPosition}
+            />
           </div>
           <br />
         </SlidingPane>

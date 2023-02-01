@@ -64,5 +64,5 @@ input.inputBox {
   transform: translateX(0%);
   top: 50px;
   border: 1px solid #ccc;
-  z-index: 999;
+  z-index: 1;
 }

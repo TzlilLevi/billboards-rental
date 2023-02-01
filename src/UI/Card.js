@@ -9,7 +9,10 @@ const Card = (props) => {
   return (
     <div
       className={`${classes.card} ${props.className}`}
-      onClick={props.onClick}
+      onClick={() => {
+        console.log("here");
+        props.onClick(props.clickedPosition);
+      }}
       onMouseOver={props.onMouseOver}
       onMouseLeave={props.onMouseLeave}
     >

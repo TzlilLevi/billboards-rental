@@ -1,18 +1,8 @@
 .map {
   height: 92.5vh;
-  z-index: -100;
-  /* width: 165vh; */
+  z-index: 0;
 }
 .slidepane {
   font-family: "Noto Sans", sans-serif;
   z-index: 999;
 }
-
-/* .slidepanebody {
-  font-family: "Noto Sans", sans-serif;
-  
-} */
-
-/* .mapcontainer {
-  z-index: -1;
-} */

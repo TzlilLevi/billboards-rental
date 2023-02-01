@@ -17,9 +17,8 @@ const PositionsList = (props) => {
       {props.positions.map((position) => (
         <Card
           key={position.id}
-          onClick={() => {
-            console.log(position.id);
-          }}
+          onClick={props.clickOnPosition}
+          clickedPosition={position}
           onMouseOver={mouseOver}
           onMouseLeave={mouseLeave}
         >
