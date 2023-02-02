@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import classes from "./BillboardsPopUp.module.css";
-import Button from "./Button";
+import Button from "../UI/Button";
 import { Popup } from "react-leaflet";
 import BillboardsDateRangeDialog from "./BillboardsDateRangeDialog";
 
