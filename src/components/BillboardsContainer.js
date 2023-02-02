@@ -50,6 +50,7 @@ const BillboardsContainer = () => {
       endReserve: new Date(
         "Tue Feb 28 2023 00:00:00 GMT+0200 (Israel Standard Time)"
       ),
+
       id: [31.331659, 34.65118].join(),
     },
     {
