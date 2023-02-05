@@ -10,7 +10,6 @@ const Card = (props) => {
     <div
       className={`${classes.card} ${props.className}`}
       onClick={() => {
-        console.log("here");
         props.onClick(props.clickedBillboard);
       }}
       onMouseOver={props.onMouseOver}

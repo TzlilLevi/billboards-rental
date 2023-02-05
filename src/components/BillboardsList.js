@@ -22,7 +22,7 @@ const BillboardsList = (props) => {
           onMouseOver={mouseOver}
           onMouseLeave={mouseLeave}
         >
-          {billboard.address} -----
+          {billboard.address}
         </Card>
       ))}
     </div>
