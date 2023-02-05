@@ -288,9 +288,11 @@ const BillboardsContainer = () => {
         ) {
           console.log("here");
           available = false;
+          billboard.available = false;
         }
       });
       if (available === true) {
+        billboard.available = true;
         return true;
       }
       return false;
@@ -356,10 +358,8 @@ const BillboardsContainer = () => {
           className={classes.slidepane}
           isOpen={openSlide}
           title="Available billboards"
-          // subtitle="Optional subtitle."
           width="350px"
           onRequestClose={() => {
-            // triggered on "<" on left top click or on outside click
             setOpenSlide(false);
           }}
         >
