@@ -1,3 +1,6 @@
+body {
+  overflow: hidden; /* Hide scrollbars */
+}
 .billboardsContainer {
   font-family: "Noto Sans", sans-serif;
   display: flex;
