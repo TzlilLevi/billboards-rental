@@ -278,7 +278,7 @@ const BillboardsContainer = () => {
                     billboard.available === true
                       ? billboardAvailable
                       : billboardNotAvailable,
-                  iconSize: [50, 100],
+                  iconSize: [40, 100],
                   popupAnchor: [0, -41],
                 });
                 return (
