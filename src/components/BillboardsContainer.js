@@ -140,7 +140,6 @@ const BillboardsContainer = () => {
 
   const [billboardsList, setBillboardsList] = useState(billboards);
   const [availableListByDate, setAvailableListByDate] = useState([]);
-  const [openSlide, setOpenSlide] = useState(false);
   const [currentBillboard, setCurrentBillboard] = useState([
     31.30949, 34.62058,
   ]);
@@ -160,12 +159,10 @@ const BillboardsContainer = () => {
               "The date range you selected is occupied, select other dates"
             );
             reservedDate = true;
-            console.log("here");
             return billboard;
           }
         });
         if (reservedDate === false) {
-          console.log("addition");
           billboard.dateReserved.push({
             startReserve: dateState[0].startDate,
             endReserve: dateState[0].endDate,
@@ -182,7 +179,6 @@ const BillboardsContainer = () => {
     handleClose();
     resetReserveTimes();
     UpdateAvailableBillboards();
-    console.log(newBillboardList);
     return;
   };
 
@@ -232,7 +228,6 @@ const BillboardsContainer = () => {
             range[0].startDate > reserved.endReserve
           )
         ) {
-          console.log("here");
           available = false;
           billboard.available = false;
         }
@@ -243,15 +238,12 @@ const BillboardsContainer = () => {
       }
       return false;
     });
-    console.log(list);
+
     setAvailableListByDate(list);
-    console.log(availableListByDate);
   };
 
   const UpdateCurrentBillboard = (billboard) => {
-    console.log(billboard);
     setCurrentBillboard(billboard.pos);
-    console.log(currentBillboard);
   };
 
   return (

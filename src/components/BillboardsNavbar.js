@@ -24,14 +24,12 @@ const BillboardsNavbar = (props) => {
   }, []);
 
   const hidenOnEscape = (e) => {
-    console.log(e.key);
     if (e.key === "Escape") {
       setopenCalendar(false);
     }
   };
 
   const hidenOnClickOutside = (e) => {
-    // console.log(refOne.current);
     if (refOne.current && !refOne.current.contains(e.target)) {
       setopenCalendar(false);
     }
