@@ -1,8 +1,3 @@
-import BillboardsDialog from "./BillboardsDialog";
-
-const Login = () => {
-  return;
-  <BillboardsDialog></BillboardsDialog>;
-};
+const Login = () => {};
 
 export default Login;

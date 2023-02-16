@@ -1,5 +1,4 @@
-import React from "react";
-import { useMap, useMapEvents } from "react-leaflet";
+import { useMap } from "react-leaflet";
 
 const UpdateMapCenter = (props) => {
   const map = useMap();

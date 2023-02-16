@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, Fragment } from "react";
 import classes from "./BillboardsNavbar.module.css";
 import { FaSignInAlt, FaSearch } from "react-icons/fa";
 import { DateRange } from "react-date-range";
@@ -6,6 +6,8 @@ import format from "date-fns/format";
 import { addDays } from "date-fns";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
+
+// import { Fragment } from "react";
 
 const BillboardsNavbar = (props) => {
   const [range, setRange] = useState([
@@ -35,7 +37,7 @@ const BillboardsNavbar = (props) => {
     }
   };
   return (
-    <>
+    <Fragment>
       <nav className={classes.nav}>
         <a className={classes.sitetitle}>Billboards-rental</a>
         <ul>
@@ -53,7 +55,11 @@ const BillboardsNavbar = (props) => {
               {openCalendar && (
                 <DateRange
                   className={classes.calendarElement}
-                  onChange={(item) => setRange([item.selection])}
+                  onChange={(item) => {
+                    if (item.selection.startDate > Date.now()) {
+                      setRange([item.selection]);
+                    }
+                  }}
                   editableDateInputs={true}
                   moveRangeOnFirstSelection={false}
                   ranges={range}
@@ -77,7 +83,7 @@ const BillboardsNavbar = (props) => {
           </li>
         </ul>
       </nav>
-    </>
+    </Fragment>
   );
 };
 

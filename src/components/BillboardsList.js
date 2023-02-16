@@ -1,6 +1,6 @@
 import React from "react";
 
-import Card from "../UI/Card";
+import Card from "./UI/Card";
 import classes from "./BillboardsList.module.css";
 
 const BillboardsList = (props) => {
