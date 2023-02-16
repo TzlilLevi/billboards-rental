@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import classes from "./BillboardsContainer.module.css";
 import L, { icon } from "leaflet";
 import {
@@ -13,66 +13,9 @@ import BillboardsNavbar from "./BillboardsNavbar";
 import BillboardsList from "./BillboardsList";
 import UpdateMapCenter from "./UpdateMapCenter";
 import "react-sliding-pane/dist/react-sliding-pane.css";
-// import SlidingPane from "react-sliding-pane";
 import { addDays } from "date-fns";
 
 const BillboardsContainer = () => {
-  // const billboards = [
-  //   {
-  //     pos: [31.30949, 34.62058],
-  //     text: "Details on the board",
-  //     address: "Ofakim",
-  //     available: true,
-  //     startReserve: undefined,
-  //     endReserve: undefined,
-  //     id: [31.30949, 34.62058].join(),
-  //   },
-  //   {
-  //     pos: [31.32385, 34.6752],
-  //     text: "Details on the board",
-  //     address: "Tifrah",
-  //     available: false,
-  //     startReserve: new Date(
-  //       "Sun Jan 01 2023 00:00:00 GMT+0200 (Israel Standard Time)"
-  //     ),
-  //     endReserve: new Date(
-  //       "Tue Feb 28 2023 00:00:00 GMT+0200 (Israel Standard Time)"
-  //     ),
-  //     id: [31.32385, 34.6752].join(),
-  //   },
-  //   {
-  //     pos: [31.331659, 34.65118],
-  //     text: "Details on the board",
-  //     address: "Gilat",
-  //     available: true,
-  //     startReserve: new Date(
-  //       "Sun Jan 01 2023 00:00:00 GMT+0200 (Israel Standard Time)"
-  //     ),
-  //     endReserve: new Date(
-  //       "Tue Feb 28 2023 00:00:00 GMT+0200 (Israel Standard Time)"
-  //     ),
-
-  //     id: [31.331659, 34.65118].join(),
-  //   },
-  //   {
-  //     pos: [31.34949, 34.66058],
-  //     text: "Details on the board",
-  //     address: "Gilat forest",
-  //     available: true,
-  //     startReserve: undefined,
-  //     endReserve: undefined,
-  //     id: [31.34949, 34.66058].join(),
-  //   },
-  //   {
-  //     pos: [31.4213546, 34.5884252],
-  //     text: "Details on the board",
-  //     address: "Netivot",
-  //     available: true,
-  //     startReserve: undefined,
-  //     endReserve: undefined,
-  //     id: [31.4213546, 34.5884252].join(),
-  //   },
-  // ];
   //change in 2/2
   const billboards = [
     {
@@ -247,7 +190,8 @@ const BillboardsContainer = () => {
   };
 
   return (
-    <div className={classes.container}>
+    // <div className={classes.container}>
+    <Fragment>
       <div className={classes.nav}>
         <BillboardsNavbar search={searchByRange} />
       </div>
@@ -273,6 +217,7 @@ const BillboardsContainer = () => {
                   iconSize: [40, 100],
                   popupAnchor: [0, -41],
                 });
+
                 return (
                   <Marker
                     key={billboard.id}
@@ -325,7 +270,8 @@ const BillboardsContainer = () => {
           <br />
         </SlidingPane>
       </div> */}
-    </div>
+      {/* </div> */}
+    </Fragment>
   );
 };
 
