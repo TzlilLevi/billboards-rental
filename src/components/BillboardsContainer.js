@@ -16,7 +16,6 @@ import "react-sliding-pane/dist/react-sliding-pane.css";
 import { addDays } from "date-fns";
 
 const BillboardsContainer = () => {
-  //change in 2/2
   const billboards = [
     {
       pos: [31.30949, 34.62058],
